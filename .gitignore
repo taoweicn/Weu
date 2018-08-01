@@ -1,0 +1,12 @@
+# IDE
+.idea/
+.vscode/
+
+# Dependency directory
+node_modules/
+
+# Production
+dist/
+
+# Cache
+.cache/
