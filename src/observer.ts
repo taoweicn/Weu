@@ -7,12 +7,12 @@ export class Observer {
   constructor(value: any) {
     this.value = value;
     this.dep = new Dep();
-    // Object.defineProperty(value, '__ob__', {
-    //   value: this,
-    //   enumerable: false,
-    //   configurable: true,
-    //   writable: true
-    // });
+    Object.defineProperty(value, '__ob__', {
+      value: this,
+      enumerable: false,
+      configurable: true,
+      writable: true
+    });
     this.walk(value);
   }
 
@@ -51,6 +51,9 @@ export function defineReactive(obj: object, key: string) {
 }
 
 export function observe(value: any): Observer {
+  if (typeof value !== 'object' || value === null) {
+    return;
+  }
   if (value.hasOwnProperty('__ob__') && value.__ob__ instanceof Observer) {
     return value.__ob__;
   } else {

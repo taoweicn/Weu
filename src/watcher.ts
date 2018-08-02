@@ -68,7 +68,7 @@ function parsePath(path: string): any {
       if (!obj) {
         return;
       }
-      obj = obj[segment];
+      obj = obj[segment]; // 获取vm实例上的值
     }
     return obj;
   };
