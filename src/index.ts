@@ -29,7 +29,22 @@ function initData(vm: any): void {
 }
 
 function initComputed(vm: any, computed: object): void {
-  // todo
+  const watchers = vm._computedWatchers = Object.create(null);
+  Object.keys(computed).forEach((key) => {
+    const userDef = computed[key];
+    watchers[key] = new Watcher(vm, key, userDef);
+    if (!(key in vm)) {
+      /* 直接定义一个新属性，所以不需要proxy函数代理即可直接在实例上访问 */
+      Object.defineProperty(vm, key, {
+        enumerable: true,
+        configurable: true,
+        get: userDef,
+        set() {
+          console.warn('Computed property is read-only!');
+        }
+      });
+    }
+  });
 }
 
 function initWatch(vm: any, watch: object): void {
@@ -40,17 +55,16 @@ function initWatch(vm: any, watch: object): void {
 }
 
 function proxy(target: object, sourceKey: string, key: string) {
-  const property = {
-    configurable: true,
+  Object.defineProperty(target, key, {
     enumerable: true,
+    configurable: true,
     get() {
       return this[sourceKey][key];
     },
     set(val) {
       this[sourceKey][key] = val;
     }
-  };
-  Object.defineProperty(target, key, property);
+  });
 }
 
 export default Weu;
