@@ -6,7 +6,7 @@ export class Watcher {
   public vm: any;
   public cb: () => void;
   public id: number;
-  public depIds: object;
+  public depIds: any;
   public getter: any;
   public value: any;
 
@@ -63,7 +63,7 @@ function parsePath(path: string): any {
     return;
   }
   const segments = path.split('.');
-  return (obj: object) => {
+  return (obj: any) => {
     for (const segment of segments) {
       if (!obj) {
         return;

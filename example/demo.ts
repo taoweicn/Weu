@@ -1,5 +1,6 @@
 import Weu from '../src/index';
 
+// @ts-ignore
 const vm: Weu = new Weu({
   data: {
     a: 1,
@@ -13,10 +14,10 @@ const vm: Weu = new Weu({
     }
   },
   watch: {
-    a(newVal, oldVal) {
+    a(newVal: any, oldVal: any) {
       console.log(`I am watched! I am changed from ${oldVal} to ${newVal}`);
     },
-    ['c.d'](newVal, oldVal) {
+    ['c.d'](newVal: any, oldVal: any) {
       console.log(`I am watched! I am changed from ${oldVal} to ${newVal}`);
     }
   }

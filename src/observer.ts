@@ -23,8 +23,9 @@ export class Observer {
   }
 }
 
-export function defineReactive(obj: object, key: string) {
+export function defineReactive(obj: object, key: string): void {
   const dep = new Dep();
+  // @ts-ignore
   let val = obj[key];
   let childOb = observe(val);
   Object.defineProperty(obj, key, {
@@ -50,7 +51,7 @@ export function defineReactive(obj: object, key: string) {
   });
 }
 
-export function observe(value: any): Observer {
+export function observe(value: any): Observer | void {
   if (typeof value !== 'object' || value === null) {
     return;
   }

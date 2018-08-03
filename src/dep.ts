@@ -3,7 +3,7 @@ import { Watcher } from './watcher';
 let uid = 0;
 
 export class Dep {
-  public static target: Watcher;
+  public static target: Watcher | null | undefined;
   public id: number;
   public subs: Watcher[];
 
@@ -30,7 +30,7 @@ export class Dep {
 }
 
 Dep.target = null;
-const targetStack = [];
+const targetStack: Watcher[] = [];
 
 export function pushTarget(target: Watcher): void {
   if (Dep.target) {
@@ -39,6 +39,6 @@ export function pushTarget(target: Watcher): void {
   Dep.target = target;
 }
 
-export function popTarget() {
+export function popTarget(): void {
   Dep.target = targetStack.pop();
 }
