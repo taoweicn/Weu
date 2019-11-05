@@ -1,8 +1,17 @@
 import { initState } from './state';
 
+interface IData {
+  [prop: string]: any
+}
+type DataMethod = () => IData;
+
+interface IComputedProps {
+  [prop: string]: () => any;
+}
+
 interface IOptions {
-  data?: any;
-  computed?: any;
+  data?: DataMethod;
+  computed?: IComputedProps;
   watch?: any;
 }
 
